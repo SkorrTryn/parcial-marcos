@@ -12,6 +12,17 @@ class Server {
     this.conectarDB();
     this.middlewares();
     this.routes();
+
+    this.app.use((req, res, next) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Authorization, X-API-KEY, Origin, X-Requested-With, Content-type, Accept, Access-Control-Allow-Request-Method"
+      );
+      res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+      res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
+      next();
+    });
   }
 
   async conectarDB() {
@@ -25,16 +36,7 @@ class Server {
 
     this.app.use(express.static("public"));
 
-    this.app.use((req, res, next) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header(
-        "Access-Control-Allow-Headers",
-        "Authorization, X-API-KEY, Origin, X-Requested-With, Content-type, Accept, Access-Control-Allow-Request-Method"
-      );
-      res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-      res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
-      next();
-    });
+    
   }
 
   routes() {
