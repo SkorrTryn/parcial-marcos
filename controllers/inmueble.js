@@ -61,7 +61,7 @@ const inmuebleController = {
     if (tipo) filtros.tipo = tipo;
     if (modoOferta) filtros.modoOferta = modoOferta;
     try {
-      const inmuebles = await Inmueble.find();
+      const inmuebles = await Inmueble.find({tipo, modoOferta});
       res.status(200).json({ inmuebles });
     } catch (error) {
       res.status(500).json({
