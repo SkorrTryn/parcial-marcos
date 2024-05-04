@@ -45,6 +45,13 @@ routerInmuebles.post(
   inmuebleController.crearInmueble
 );
 
+// registrar una visita a un inmueble
+routerInmuebles.post(
+  "/visitas/:numeroReferencia",
+  [check("numeroReferencia").notEmpty(), validation],
+  inmuebleController.registrarVisita
+);
+
 // obtener detalles de un inmueble por su número de referencia
 routerInmuebles.get(
   "/:numeroReferencia",
@@ -55,11 +62,6 @@ routerInmuebles.get(
 // listar inmuebles disponibles para venta o alquiler
 routerInmuebles.get("/", inmuebleController.listarInmueblesDisponibles);
 
-// registrar una visita a un inmueble
-routerInmuebles.post(
-  "/:numeroReferencia/visitas",
-  [check("numeroReferencia").notEmpty(), validation],
-  inmuebleController.registrarVisita
-);
+
 
 module.exports = routerInmuebles;
