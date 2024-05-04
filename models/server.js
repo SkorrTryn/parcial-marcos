@@ -12,7 +12,21 @@ class Server {
     this.conectarDB();
     this.middlewares();
     this.routes();
+  }
 
+  async conectarDB() {
+    await dbConnection();
+  }
+
+  middlewares() {
+    // Configurar el middleware CORS antes de las rutas
+    this.app.use(cors());
+
+    this.app.use(express.json());
+
+    this.app.use(express.static("public"));
+
+    // Middleware CORS adicional opcionalmente podría ir aquí
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
       res.header(
@@ -23,20 +37,6 @@ class Server {
       res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
       next();
     });
-  }
-
-  async conectarDB() {
-    await dbConnection();
-  }
-
-  middlewares() {
-    this.app.use(cors());
-
-    this.app.use(express.json());
-
-    this.app.use(express.static("public"));
-
-    
   }
 
   routes() {
@@ -52,4 +52,4 @@ class Server {
   }
 }
 
-module.exports = Server;
+module.exports = Server;
