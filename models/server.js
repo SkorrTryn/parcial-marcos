@@ -1,14 +1,21 @@
 const express = require("express");
 const cors = require("cors");
-const routesUser = require("../routes/user");
+const { dbConnection } = require("../database/config");
+const routerCliente = require("../routes/cliente");
+const routerOficina = require("../routes/oficina");
+const routerInmuebles = require("../routes/inmuebles");
 
 class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
-    this.usuariosPath = process.env.USERPATH;
+    this.conectarDB();
     this.middlewares();
     this.routes();
+  }
+
+  async conectarDB() {
+    await dbConnection();
   }
 
   middlewares() {
@@ -20,7 +27,9 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.usuariosPath, routesUser);
+    this.app.use("/api/cliente", routerCliente);
+    this.app.use("/api/oficina", routerOficina);
+    this.app.use("/api/inmuebles", routerInmuebles);
   }
 
   listen() {
