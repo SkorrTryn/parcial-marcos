@@ -3,7 +3,7 @@ const Inmueble = require("./inmuebles");
 const Schema = mongoose.Schema;
 
 const VillaSchema = new Schema({
-  tamañoParcela: { type: Number, required: true },
+  tamanoParcela: { type: Number, required: true },
   urbanizacion: { type: String, required: true },
   habitaciones: { type: Number, required: true },
   banos: { type: Number, required: true },
