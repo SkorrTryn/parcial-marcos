@@ -6,7 +6,7 @@ const VillaSchema = new Schema({
   tamañoParcela: { type: Number, required: true },
   urbanizacion: { type: String, required: true },
   habitaciones: { type: Number, required: true },
-  baños: { type: Number, required: true },
+  banos: { type: Number, required: true },
   cocinas: { type: Number, required: true },
   gas: { type: Boolean, required: true },
   puertaBlindada: { type: Boolean, required: true },
