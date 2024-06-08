@@ -8,12 +8,14 @@ const {
   modoAdecuado,
   existeOficina,
 } = require("../helpers/inmuebles-validation");
+const { validarJWT } = require("../helpers/validar-jwt");
 const routerInmuebles = Router();
 
 // crear un nuevo inmueble
 routerInmuebles.post(
   "/crear",
   [
+    validarJWT,
     check(
       "numeroReferencia",
       "El numero de referencia no puede estar vacio"
@@ -48,20 +50,22 @@ routerInmuebles.post(
 // registrar una visita a un inmueble
 routerInmuebles.post(
   "/visitas/:numeroReferencia",
-  [check("numeroReferencia").notEmpty(), validation],
+  [validarJWT, check("numeroReferencia").notEmpty(), validation],
   inmuebleController.registrarVisita
 );
 
 // obtener detalles de un inmueble por su número de referencia
 routerInmuebles.get(
   "/:numeroReferencia",
-  [check("numeroReferencia").notEmpty(), validation],
+  [validarJWT, check("numeroReferencia").notEmpty(), validation],
   inmuebleController.obtenerInmueblePorReferencia
 );
 
 // listar inmuebles disponibles para venta o alquiler
-routerInmuebles.get("/", inmuebleController.listarInmueblesDisponibles);
-
-
+routerInmuebles.get(
+  "/",
+  validarJWT,
+  inmuebleController.listarInmueblesDisponibles
+);
 
 module.exports = routerInmuebles;
