@@ -4,6 +4,8 @@ const { dbConnection } = require("../database/config");
 const routerCliente = require("../routes/cliente");
 const routerOficina = require("../routes/oficina");
 const routerInmuebles = require("../routes/inmuebles");
+const routerUsuario = require("../routes/usuario");
+const authRouter = require("../routes/auth");
 
 class Server {
   constructor() {
@@ -33,7 +35,10 @@ class Server {
         "Access-Control-Allow-Headers",
         "Authorization, X-API-KEY, Origin, X-Requested-With, Content-type, Accept, Access-Control-Allow-Request-Method"
       );
-      res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+      res.header(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, DELETE"
+      );
       res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
       next();
     });
@@ -43,6 +48,8 @@ class Server {
     this.app.use("/api/cliente", routerCliente);
     this.app.use("/api/oficina", routerOficina);
     this.app.use("/api/inmuebles", routerInmuebles);
+    this.app.use("/api/usuario", routerUsuario);
+    this.app.use("/api/auth", authRouter);
   }
 
   listen() {
@@ -52,4 +59,4 @@ class Server {
   }
 }
 
-module.exports = Server;
+module.exports = Server;
